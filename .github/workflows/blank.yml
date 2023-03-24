@@ -34,4 +34,4 @@ jobs:
           ANYPOINT_CLIENTSECRET: ${{ secrets.ANYPOINT_CLIENTSECRET }}
           ANYPOINT_ORG_ID: ${{ secrets.ANYPOINT_ORGID }}
         run: |
-              anypoint-cli --username=andresc13mar23 --password=Keyboard123. governance api validate --remote-rulesets 68ef9520-24e9-4cf2-b2f5-620025690913/open-api-best-practices/1.0.0 members-api.yaml
+              anypoint-cli --username=andresc13mar23 --password=Keyboard123. governance api validate --remote-rulesets 68ef9520-24e9-4cf2-b2f5-620025690913/openapi-best-practices/1.0.0 members-api.yaml
