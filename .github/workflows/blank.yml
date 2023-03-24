@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+name: Validate API Spec with Anypoint API Governance
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    # Build Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Configure Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Install anypoint cli
+        run: |
+          sudo apt-get update
+          npm install -g anypoint-cli@latest
+      - name: Validates API Spec with Anypoint Governance
+        env: 
+          ANYPOINT_CLIENTID: ${{ secrets.ANYPOINT_CLIENTID }} 
+          ANYPOINT_CLIENTSECRET: ${{ secrets.ANYPOINT_CLIENTSECRET }}
+          ANYPOINT_ORG_ID: ${{ secrets.ANYPOINT_ORGID }}
+        run: |
+              anypoint-cli --username=andresc13mar23 --password=Keyboard123. governance api validate --remote-rulesets 68ef9520-24e9-4cf2-b2f5-620025690913/open-api-best-practices/1.0.0 ./members-api.yaml
