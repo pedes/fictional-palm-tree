@@ -30,8 +30,13 @@ jobs:
           npm install -g anypoint-cli@latest
       - name: Validates API Spec with Anypoint Governance
         env: 
-          ANYPOINT_CLIENTID: ${{ secrets.ANYPOINT_CLIENTID }} 
-          ANYPOINT_CLIENTSECRET: ${{ secrets.ANYPOINT_CLIENTSECRET }}
-          ANYPOINT_ORG_ID: ${{ secrets.ANYPOINT_ORGID }}
+          ANYPOINT_USERNAME: ${{ secrets.ANYPOINT_USERNAME }} 
+          ANYPOINT_PASSWORD: ${{ secrets.ANYPOINT_PASSWORD }}
+          ANYPOINT_ORG_ID: ${{ secrets.ANYPOINT_ORG_ID }}
         run: |
-              anypoint-cli --username=andresc13mar23 --password=Keyboard123. governance api validate --remote-rulesets 68ef9520-24e9-4cf2-b2f5-620025690913/openapi-best-practices/1.0.0 members-api.yaml
+              anypoint-cli --username="$ANYPOINT_USERNAME" \
+              --password="$ANYPOINT_PASSWORD" \
+              --environment="Sandbox"
+              governance api validate \
+              --remote-rulesets 68ef9520-24e9-4cf2-b2f5-620025690913/openapi-best-practices/1.0.0 \
+              ./members-api.yaml
